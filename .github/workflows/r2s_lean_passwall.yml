@@ -62,6 +62,7 @@ jobs:
           CONFIG_PACKAGE_ntfs-3g=y
           CONFIG_PACKAGE_luci-app-minidlna=y
           CONFIG_PACKAGE_luci-app-transmission=y
+          CONFIG_PACKAGE_luci-app-usb-printer=y
           CONFIG_PACKAGE_luci-app-p910nd=y
           CONFIG_PACKAGE_luci-i18n-p910nd-zh-cn=y
           # CONFIG_V2RAY_COMPRESS_UPX is not set
