@@ -85,7 +85,7 @@ jobs:
           #dnsmasq.ssr/gfw_base.conf' | xargs rm
           #cd ../../../
           rm -rf luci-theme-argon
-          git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git
+          git clone https://github.com/jerrykuku/luci-theme-argon.git
           cd ../../
           git apply ../../enable_autocore.diff
           #git apply ../../fix_cpufreq.diff
