@@ -72,7 +72,7 @@ jobs:
           sed -i '/ipv6/,+3d' package/base-files/files/root/setup.sh
           git checkout upstream/master -- feeds.conf.default
           sed -i '5s/#src-git/src-git/g' feeds.conf.default
-          cd package/ && git clone https://github.com/destan19/OpenAppFilter.git && cd ../
+          #cd package/ && git clone https://github.com/destan19/OpenAppFilter.git && cd ../
           cd package/lean/
           #git clone https://github.com/jerrykuku/lua-maxminddb.git
           #git clone https://github.com/jerrykuku/luci-app-vssr.git
@@ -85,7 +85,7 @@ jobs:
           #dnsmasq.ssr/gfw_base.conf' | xargs rm
           #cd ../../../
           rm -rf luci-theme-argon
-          git clone https://github.com/jerrykuku/luci-theme-argon.git
+          git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git
           cd ../../
           git apply ../../enable_autocore.diff
           #git apply ../../fix_cpufreq.diff
