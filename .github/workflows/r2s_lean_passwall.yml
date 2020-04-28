@@ -60,6 +60,7 @@ jobs:
           CONFIG_PACKAGE_luci-app-hd-idle=y
           CONFIG_PACKAGE_luci-app-minidlna=y
           CONFIG_PACKAGE_luci-app-transmission=y
+          CONFIG_PACKAGE_ntfs-3g=y
           # CONFIG_V2RAY_COMPRESS_UPX is not set
           ' >> configs/config_rk3328
           cd friendlywrt
@@ -73,7 +74,7 @@ jobs:
           sed -i '/ipv6/,+3d' package/base-files/files/root/setup.sh
           git checkout upstream/master -- feeds.conf.default
           sed -i '5s/#src-git/src-git/g' feeds.conf.default
-          #cd package/ && git clone https://github.com/destan19/OpenAppFilter.git && cd ../
+          cd package/ && git clone https://github.com/destan19/OpenAppFilter.git && cd ../
           cd package/lean/
           #git clone https://github.com/jerrykuku/lua-maxminddb.git
           #git clone https://github.com/jerrykuku/luci-app-vssr.git
