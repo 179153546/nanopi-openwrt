@@ -6,15 +6,12 @@ on:
       - master
     paths:
       - '.github/workflows/test.yml'
-		   
-						 
 
 jobs:
 
   build:
 
     runs-on: ubuntu-latest
-														
 
     steps:
 
@@ -123,9 +120,8 @@ jobs:
           sed -i 's/option fullcone\t1/option fullcone\t0/' package/network/config/firewall/files/firewall.config
           sed -i '/8.8.8.8/d' package/base-files/files/root/setup.sh
           mv ../../scripts/check_wan4.sh package/base-files/files/usr/bin && sed -i '/exit/i\/bin/sh /usr/bin/check_wan4.sh &' package/base-files/files/etc/rc.local
-																																									 
-          echo -e '\nDYC Build\n'  >> package/base-files/files/etc/banner
-          
+	  echo -e '\nDYC Build\n'  >> package/base-files/files/etc/banner
+
       - name: Add OpenClash
         run: |
           git clone https://github.com/vernesong/OpenClash.git 
@@ -134,7 +130,7 @@ jobs:
           mkdir -p etc/openclash/core && cd etc/openclash/core
           curl -L https://github.com/vernesong/OpenClash/releases/download/Clash/clash-linux-armv8.tar.gz | tar zxf -
           chmod +x clash
-          
+
       - name: Add Passwall
         run: |
           cd friendlywrt-rk3328/friendlywrt
@@ -150,7 +146,7 @@ jobs:
           rm -rf package/lean/luci-app-pptp-server
           rm -rf package/lean/luci-app-v2ray-server
           ./scripts/feeds install -a
-          
+
       - name: Build FriendlyWrt
         run: |
           cd friendlywrt-rk3328
@@ -159,7 +155,7 @@ jobs:
       - name: Zip Files
         run: |
           gzip friendlywrt-rk3328/out/*.img
-          
+
       - name: Assemble Artifact
         id: assemble_artifact
         run: |
@@ -169,8 +165,7 @@ jobs:
           cp friendlywrt-rk3328/friendlywrt/.config ./artifact/
           zip -r artifact.zip ./artifact/
           release_tag="test-$(date +%Y-%m-%d)"
-													 
-          echo "##[set-output name=release_tag;]$release_tag"
+	  echo "##[set-output name=release_tag;]$release_tag"
           
       - name: Create Release
         id: create_release
