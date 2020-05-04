@@ -6,15 +6,12 @@ on:
       - master
     paths:
       - '.github/workflows/r2s_lean_passwall.yml'
-		   
-						 
 
 jobs:
 
   build:
 
     runs-on: ubuntu-latest
-														
 
     steps:
 
