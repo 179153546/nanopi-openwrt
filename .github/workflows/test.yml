@@ -1,4 +1,4 @@
-name: r2s Lean版openwrt
+name: r2s Lean版openwrt 
 
 on:
   push:
@@ -50,17 +50,15 @@ jobs:
           cat configs/config_rk3328 | grep "TARGET" >> ../base_rk3328.seed
           cat ../app_config.seed >> ../base_rk3328.seed
           cat ../base_rk3328.seed > configs/config_rk3328
-          echo '		 
-          CONFIG_PACKAGE_luci-app-passwall=y
-          CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Brook=y
-          CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks=y
-          CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Trojan=y
-          CONFIG_PACKAGE_luci-app-passwall_INCLUDE_simple-obfs=y
-          CONFIG_PACKAGE_luci-app-passwall_INCLUDE_v2ray-plugin=y
+          echo '
           CONFIG_PACKAGE_luci-app-hd-idle=y
           CONFIG_PACKAGE_luci-app-minidlna=y
           CONFIG_PACKAGE_luci-app-transmission=y
           CONFIG_PACKAGE_ntfs-3g=y
+          CONFIG_PACKAGE_luci-app-usb-printer=y
+          CONFIG_PACKAGE_luci-app-p910nd=y
+          CONFIG_PACKAGE_luci-i18n-p910nd-zh-cn=y
+          CONFIG_PACKAGE_luci-app-openclash=y
           # CONFIG_V2RAY_COMPRESS_UPX is not set
           ' >> configs/config_rk3328
           cd friendlywrt
@@ -68,18 +66,18 @@ jobs:
           git remote add upstream https://github.com/coolsnowwolf/lede && git fetch upstream
           git rebase adc1a9a3676b8d7be1b48b5aed185a94d8e42728^ --onto upstream/master -X theirs
           git revert --no-edit 4787dbaf3cad44b374b660cc0fef9386963e6795
-          git revert --no-edit 463b6ac0508de4788a6e41335471ced0a255e1cd
+          git revert --no-edit 463b6ac0508de4788a6e41335471ced0a255e1cd          
           git revert --no-edit 8faac30089ce616940b3e96c4f4d900aeb6b9fcb
           rm target/linux/rockchip-rk3328/patches-4.14/0001-net-thunderx-workaround-BGX-TX-Underflow-issue.patch
           sed -i '/ipv6/,+3d' package/base-files/files/root/setup.sh
           git checkout upstream/master -- feeds.conf.default
           sed -i '5s/#src-git/src-git/g' feeds.conf.default
-          #cd package/ 
-          #git clone https://github.com/destan19/OpenAppFilter.git 
-          #git clone https://github.com/rufengsuixing/luci-app-adguardhome.git
-          #git clone https://github.com/lisaac/luci-lib-docker.git 
-          #git clone https://github.com/lisaac/luci-app-dockerman.git 
-          #cd ../
+          cd package/ 
+          git clone https://github.com/destan19/OpenAppFilter.git 
+          git clone https://github.com/rufengsuixing/luci-app-adguardhome.git
+          git clone https://github.com/lisaac/luci-lib-docker.git 
+          git clone https://github.com/lisaac/luci-app-dockerman.git 
+          cd ../
           cd package/lean/
           #git clone https://github.com/jerrykuku/lua-maxminddb.git
           #git clone https://github.com/jerrykuku/luci-app-vssr.git
@@ -103,23 +101,7 @@ jobs:
           sed -i '/8.8.8.8/d' package/base-files/files/root/setup.sh
           mv ../../scripts/check_wan4.sh package/base-files/files/usr/bin && sed -i '/exit/i\/bin/sh /usr/bin/check_wan4.sh &' package/base-files/files/etc/rc.local
           echo -e '\nDYC Build\n'  >> package/base-files/files/etc/banner
-
-      - name: Add Passwall
-        run: |
-          cd friendlywrt-rk3328/friendlywrt
-          echo -e '\nsrc-git lienol https://github.com/Lienol/openwrt-package' >> feeds.conf.default
-          ./scripts/feeds update -a
-          rm -rf feeds/lienol/lienol/ipt2socks
-          rm -rf feeds/lienol/lienol/shadowsocksr-libev
-          rm -rf feeds/lienol/lienol/pdnsd-alt
-          rm -rf feeds/lienol/package/verysync
-          rm -rf feeds/lienol/lienol/luci-app-verysync
-          rm -rf package/lean/luci-app-kodexplorer
-          rm -rf package/lean/luci-app-pppoe-relay
-          rm -rf package/lean/luci-app-pptp-server
-          rm -rf package/lean/luci-app-v2ray-server
-          ./scripts/feeds install -a
-
+        
       - name: Build FriendlyWrt
         run: |
           cd friendlywrt-rk3328
@@ -128,7 +110,7 @@ jobs:
       - name: Zip Files
         run: |
           gzip friendlywrt-rk3328/out/*.img
-
+          
       - name: Assemble Artifact
         id: assemble_artifact
         run: |
@@ -139,7 +121,7 @@ jobs:
           zip -r artifact.zip ./artifact/
           release_tag="test-$(date +%Y-%m-%d)"
           echo "##[set-output name=release_tag;]$release_tag"
-
+          
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -158,5 +140,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
           asset_path: ./artifact.zip
-          asset_name: ${{ steps.assemble_artifact.outputs.release_tag }}-ROM.zip
+          asset_name: ${{ steps.assemble_artifact.outputs.release_tag }}-passwall-ROM.zip
           asset_content_type: application/zip
