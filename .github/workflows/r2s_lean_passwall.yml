@@ -105,11 +105,11 @@ jobs:
           cd package/ 
           git clone https://github.com/destan19/OpenAppFilter.git 
           git clone https://github.com/rufengsuixing/luci-app-adguardhome.git
-          git clone https://github.com/kenzok8/small.git
-          git clone https://github.com/kenzok8/openwrt-packages.git 
+          git clone https://github.com/lisaac/luci-app-diskman.git
           git clone https://github.com/lisaac/luci-lib-docker.git 
           git clone https://github.com/lisaac/luci-app-dockerman.git 
-          git clone https://github.com/lisaac/luci-app-diskman.git
+          git clone https://github.com/kenzok8/small.git
+          git clone https://github.com/kenzok8/openwrt-packages.git          
           cd ../
           cd package/lean/
           #git clone https://github.com/jerrykuku/lua-maxminddb.git
@@ -133,6 +133,7 @@ jobs:
           sed -i 's/option fullcone\t1/option fullcone\t0/' package/network/config/firewall/files/firewall.config
           sed -i '/8.8.8.8/d' package/base-files/files/root/setup.sh
           mv ../../scripts/check_wan4.sh package/base-files/files/usr/bin && sed -i '/exit/i\/bin/sh /usr/bin/check_wan4.sh &' package/base-files/files/etc/rc.local
+          mv ../../scripts/autoupdate.sh package/base-files/files/root/au.sh && chmod +x package/base-files/files/root/au.sh
           echo -e '\nDYC Build\n' >> package/base-files/files/etc/banner
         
       - name: Build FriendlyWrt
