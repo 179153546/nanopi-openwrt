@@ -51,6 +51,7 @@ jobs:
           cat ../app_config.seed >> ../base_rk3328.seed
           cat ../base_rk3328.seed > configs/config_rk3328
           echo '
+          CONFIG_PACKAGE_luci-app-passwall=y
           CONFIG_PACKAGE_luci-app-hd-idle=y
           CONFIG_PACKAGE_luci-app-minidlna=y
           CONFIG_PACKAGE_luci-app-transmission=y
@@ -59,37 +60,31 @@ jobs:
           CONFIG_PACKAGE_luci-app-p910nd=y
           CONFIG_PACKAGE_luci-i18n-p910nd-zh-cn=y
           CONFIG_PACKAGE_luci-app-openclash=y
+          CONFIG_PACKAGE_luci-app-docker=y
+          CONFIG_PACKAGE_luci-app-dockerman=y
+          CONFIG_PACKAGE_luci-app-diskman=y
+          CONFIG_PACKAGE_luci-app-netdata=y
+          CONFIG_PACKAGE_luci-app-openvpn-server=y
+          CONFIG_PACKAGE_luci-app-zerotier=y
+          CONFIG_PACKAGE_luci-app-smartdns=y
+          CONFIG_PACKAGE_luci-app-wireguard=y
+          CONFIG_PACKAGE_luci-app-koolproxyR=y
+          CONFIG_PACKAGE_luci-app-eqos=y
           # CONFIG_V2RAY_COMPRESS_UPX is not set
           ' >> configs/config_rk3328
           cd friendlywrt
           git config --local user.email "action@github.com" && git config --local user.name "GitHub Action"
-          git remote add upstream https://github.com/coolsnowwolf/lede && git fetch upstream
-          git rebase adc1a9a3676b8d7be1b48b5aed185a94d8e42728^ --onto upstream/master -X theirs
-          git revert --no-edit 23378ed9a481dc73923f5bfa81637a1a8056882d
-          git revert --no-edit 4787dbaf3cad44b374b660cc0fef9386963e6795
-          git revert --no-edit 463b6ac0508de4788a6e41335471ced0a255e1cd
-          git revert --no-edit 8faac30089ce616940b3e96c4f4d900aeb6b9fcb
-          rm target/linux/rockchip-rk3328/patches-4.14/0001-net-thunderx-workaround-BGX-TX-Underflow-issue.patch
-          sed -i '/ipv6/,+3d' package/base-files/files/root/setup.sh
-          git checkout upstream/master -- feeds.conf.default
-          sed -i '5s/#src-git/src-git/g' feeds.conf.default
+
           cd package/ 
+          git clone https://github.com/kenzok8/small.git
+          git clone https://github.com/kenzok8/openwrt-packages.git
           git clone https://github.com/destan19/OpenAppFilter.git 
           git clone https://github.com/rufengsuixing/luci-app-adguardhome.git
           git clone https://github.com/lisaac/luci-lib-docker.git 
           git clone https://github.com/lisaac/luci-app-dockerman.git 
+          git clone https://github.com/lisaac/luci-app-diskman.git
           cd ../
-          cd package/lean/
-          #git clone https://github.com/jerrykuku/lua-maxminddb.git
-          #git clone https://github.com/jerrykuku/luci-app-vssr.git
-          #cd luci-app-vssr/root/etc/
-          #echo 'china_ssr.txt
-          #config/black.list
-          #config/white.list
-          #dnsmasq.oversea/oversea_list.conf
-          #dnsmasq.ssr/ad.conf
-          #dnsmasq.ssr/gfw_base.conf' | xargs rm
-          #cd ../../../
+          
           rm -rf luci-theme-argon
           git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git
           cd ../../
