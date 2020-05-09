@@ -72,6 +72,22 @@ jobs:
           CONFIG_PACKAGE_luci-app-eqos=y
           CONFIG_PACKAGE_luci-theme-argon_new=y
           CONFIG_PACKAGE_luci-theme-argon-dark-new=y
+          # CONFIG_PACKAGE_luci-app-accesscontrol is not set
+          # CONFIG_PACKAGE_luci-app-nlbwmon is not set
+          # CONFIG_PACKAGE_nlbwmon is not set
+          # CONFIG_PACKAGE_luci-app-pppoe-relay is not set
+          # CONFIG_PACKAGE_luci-app-pppoe-server is not set
+          # CONFIG_PACKAGE_luci-app-pptp-vpnserver-manyusers is not set
+          # CONFIG_PACKAGE_luci-app-sqm is not set
+          # CONFIG_PACKAGE_luci-app-ssr-python-pro-server is not set
+          # CONFIG_PACKAGE_luci-app-v2ray-server is not set
+          # CONFIG_PACKAGE_luci-app-vsftpd is not set
+          # CONFIG_PACKAGE_luci-app-vssr_INCLUDE_ShadowsocksR_Socks is not set
+          # CONFIG_TARGET_ROOTFS_TARGZ is not set
+          # CONFIG_OPENSSL_ENGINE_BUILTIN_DEVCRYPTO is not set
+          # CONFIG_PACKAGE_kmod-crypto-authenc is not set
+          # CONFIG_PACKAGE_kmod-cryptodev is not set
+          # CONFIG_PACKAGE_libopenssl-devcrypto is not set
           # CONFIG_V2RAY_COMPRESS_UPX is not set
           ' >> configs/config_rk3328
           cd friendlywrt
@@ -91,6 +107,9 @@ jobs:
           git clone https://github.com/rufengsuixing/luci-app-adguardhome.git
           git clone https://github.com/kenzok8/small.git
           git clone https://github.com/kenzok8/openwrt-packages.git 
+          git clone https://github.com/lisaac/luci-lib-docker.git 
+          git clone https://github.com/lisaac/luci-app-dockerman.git 
+          git clone https://github.com/lisaac/luci-app-diskman.git
           cd ../
           cd package/lean/
           #git clone https://github.com/jerrykuku/lua-maxminddb.git
@@ -115,6 +134,7 @@ jobs:
           sed -i '/8.8.8.8/d' package/base-files/files/root/setup.sh
           mv ../../scripts/check_wan4.sh package/base-files/files/usr/bin && sed -i '/exit/i\/bin/sh /usr/bin/check_wan4.sh &' package/base-files/files/etc/rc.local
           echo -e '\nDYC Build\n'  >> package/base-files/files/etc/banner
+          mv ../../scripts/autoupdate.sh package/base-files/files/root/au.sh && chmod +x package/base-files/files/root/au.sh
         
       - name: Build FriendlyWrt
         run: |
