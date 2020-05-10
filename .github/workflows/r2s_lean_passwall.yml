@@ -51,25 +51,6 @@ jobs:
           cat ../app_config.seed >> ../base_rk3328.seed
           cat ../base_rk3328.seed > configs/config_rk3328
           echo '
-          CONFIG_PACKAGE_luci-app-passwall=y
-          CONFIG_PACKAGE_luci-app-hd-idle=y
-          CONFIG_PACKAGE_luci-app-minidlna=y
-          CONFIG_PACKAGE_luci-app-transmission=y
-          CONFIG_PACKAGE_ntfs-3g=y
-          CONFIG_PACKAGE_luci-app-usb-printer=y
-          CONFIG_PACKAGE_luci-app-p910nd=y
-          CONFIG_PACKAGE_luci-i18n-p910nd-zh-cn=y
-          CONFIG_PACKAGE_luci-app-openclash=y
-          CONFIG_PACKAGE_luci-app-diskman=y
-          CONFIG_PACKAGE_luci-app-netdata=y
-          CONFIG_PACKAGE_luci-app-openvpn-server=y
-          CONFIG_PACKAGE_luci-app-zerotier=y
-          CONFIG_PACKAGE_luci-app-smartdns=y
-          CONFIG_PACKAGE_luci-app-wireguard=y
-          CONFIG_PACKAGE_luci-app-eqos=y
-          CONFIG_PACKAGE_luci-app-koolproxyR=y
-          CONFIG_PACKAGE_luci-theme-argon_new=y
-          CONFIG_PACKAGE_luci-theme-argon-dark-new=y
           # CONFIG_PACKAGE_luci-app-accesscontrol is not set
           # CONFIG_PACKAGE_luci-app-nlbwmon is not set
           # CONFIG_PACKAGE_nlbwmon is not set
@@ -106,8 +87,8 @@ jobs:
           git clone https://github.com/destan19/OpenAppFilter.git 
           git clone https://github.com/rufengsuixing/luci-app-adguardhome.git
           git clone https://github.com/lisaac/luci-app-diskman.git
-          #git clone https://github.com/lisaac/luci-lib-docker.git 
-          #git clone https://github.com/lisaac/luci-app-dockerman.git 
+          git clone https://github.com/lisaac/luci-lib-docker.git 
+          git clone https://github.com/lisaac/luci-app-dockerman.git 
           git clone https://github.com/kenzok8/small.git
           git clone https://github.com/kenzok8/openwrt-packages.git          
           cd ../
@@ -120,7 +101,7 @@ jobs:
           #git apply ../../fix_cpufreq.diff
           sed -i '/uci commit luci/i\uci set luci.main.mediaurlbase="/luci-static/argon"' package/lean/default-settings/files/zzz-default-settings
           sed -i '/exit/i\chown -R root:root /usr/share/netdata/web' package/lean/default-settings/files/zzz-default-settings
-          #sed -i '/exit/i\find /etc/rc.d/ -name *docker* -delete' package/lean/default-settings/files/zzz-default-settings
+          sed -i '/exit/i\find /etc/rc.d/ -name *docker* -delete' package/lean/default-settings/files/zzz-default-settings
           sed -i 's/option fullcone\t1/option fullcone\t0/' package/network/config/firewall/files/firewall.config
           sed -i '/8.8.8.8/d' package/base-files/files/root/setup.sh
           mv ../../scripts/check_wan4.sh package/base-files/files/usr/bin && sed -i '/exit/i\/bin/sh /usr/bin/check_wan4.sh &' package/base-files/files/etc/rc.local
@@ -131,6 +112,7 @@ jobs:
           cd friendlywrt-rk3328
           sed -i 's/set -eu/set -u/' scripts/mk-friendlywrt.sh
           ./build.sh nanopi_r2s.mk
+          
       - name: Zip Files
         run: |
           gzip friendlywrt-rk3328/out/*.img
