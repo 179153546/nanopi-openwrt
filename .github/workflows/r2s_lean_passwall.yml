@@ -68,6 +68,7 @@ jobs:
           CONFIG_PACKAGE_luci-app-eqos=y
           CONFIG_PACKAGE_luci-app-docker=y
           CONFIG_PACKAGE_luci-app-dockerman=y
+          CONFIG_PACKAGE_luci-app-r2sflasher=y
           # CONFIG_PACKAGE_luci-app-accesscontrol is not set
           # CONFIG_PACKAGE_luci-app-nlbwmon is not set
           # CONFIG_PACKAGE_nlbwmon is not set
@@ -107,7 +108,10 @@ jobs:
           git clone https://github.com/lisaac/luci-lib-docker.git 
           git clone https://github.com/lisaac/luci-app-dockerman.git 
           git clone https://github.com/kenzok8/small.git
-          git clone https://github.com/kenzok8/openwrt-packages.git          
+          git clone https://github.com/kenzok8/openwrt-packages.git
+          git clone https://github.com/songchenwen/nanopi-r2s
+          mv nanopi-r2s/luci-app-r2sflasher/ .
+          rm -rf nanopi-r2s/          
           cd ../
           cd package/lean/
           
