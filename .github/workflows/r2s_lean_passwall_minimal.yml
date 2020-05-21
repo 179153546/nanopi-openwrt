@@ -6,15 +6,12 @@ on:
       - master
     paths:
       - '.github/workflows/r2s_lean_passwall_minimal.yml'
-		   
-						 
 
 jobs:
 
   build:
 
     runs-on: ubuntu-latest
-														
 
     steps:
 
@@ -53,7 +50,7 @@ jobs:
           cat configs/config_rk3328 | grep "TARGET" >> ../base_rk3328.seed
           cat ../base_rk3328.seed > configs/config_rk3328
           echo '
-		  CONFIG_PACKAGE_ipv6helper=y
+	  CONFIG_PACKAGE_ipv6helper=y
           CONFIG_PACKAGE_dnsmasq_full_dhcpv6=y
           CONFIG_OPENSSL_ENGINE_BUILTIN=y
           CONFIG_OPENSSL_WITH_DTLS=y
@@ -93,12 +90,12 @@ jobs:
           CONFIG_UnblockNeteaseMusic_Go=y
           CONFIG_UnblockNeteaseMusic_NodeJS=y
           CONFIG_PACKAGE_luci-app-passwall=y
-		  CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Brook=y
+	  CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Brook=y
           CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks=y
           CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Trojan=y
           CONFIG_PACKAGE_luci-app-passwall_INCLUDE_simple-obfs=y
           CONFIG_PACKAGE_luci-app-passwall_INCLUDE_v2ray-plugin=y
-		  CONFIG_PACKAGE_luci-app-samba=y
+	  CONFIG_PACKAGE_luci-app-samba=y
           CONFIG_PACKAGE_luci-app-hd-idle=y
           CONFIG_PACKAGE_luci-app-transmission=y
           CONFIG_PACKAGE_ntfs-3g=y
@@ -145,17 +142,7 @@ jobs:
           rm -rf nanopi-r2s/          
           cd ../
           cd package/lean/
-          
-																   
-									 
-							  
-							
-							
-											
-							  
-												
-					   
-          rm -rf luci-theme-argon
+	  rm -rf luci-theme-argon
           git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git
           cd ../../
           git apply ../../enable_autocore.diff
@@ -166,31 +153,9 @@ jobs:
           sed -i 's/option fullcone\t1/option fullcone\t0/' package/network/config/firewall/files/firewall.config
           sed -i '/8.8.8.8/d' package/base-files/files/root/setup.sh
           mv ../../scripts/check_wan4.sh package/base-files/files/usr/bin && sed -i '/exit/i\/bin/sh /usr/bin/check_wan4.sh &' package/base-files/files/etc/rc.local
-		  mv ../../scripts/autoupdate.sh package/base-files/files/root/au.sh && chmod +x package/base-files/files/root/au.sh
+	  mv ../../scripts/autoupdate.sh package/base-files/files/root/au.sh && chmod +x package/base-files/files/root/au.sh
           echo -e '\nDYC Build\n' >> package/base-files/files/etc/banner
-        
-			  
-																		 
-																				
-																	
-															  
-																																							
-						
-						  
-			  
-										   
-																																													 
-								   
-											  
-													   
-											  
-											  
-													  
-												  
-												  
-												  
-												   
-									
+          					
       - name: Build FriendlyWrt
         run: |
           cd friendlywrt-rk3328
@@ -210,8 +175,7 @@ jobs:
           cp friendlywrt-rk3328/friendlywrt/.config ./artifact/
           zip -r artifact.zip ./artifact/
           release_tag="R2S-Lean-$(date +%Y-%m-%d)-Minimal"
-													 
-          echo "##[set-output name=release_tag;]$release_tag"
+	  echo "##[set-output name=release_tag;]$release_tag"
           
       - name: Create Release
         id: create_release
