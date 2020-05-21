@@ -95,7 +95,6 @@ jobs:
           CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Trojan=y
           CONFIG_PACKAGE_luci-app-passwall_INCLUDE_simple-obfs=y
           CONFIG_PACKAGE_luci-app-passwall_INCLUDE_v2ray-plugin=y
-          CONFIG_PACKAGE_luci-app-samba=y
           CONFIG_PACKAGE_luci-app-hd-idle=y
           CONFIG_PACKAGE_luci-app-transmission=y
           CONFIG_PACKAGE_ntfs-3g=y
@@ -132,8 +131,6 @@ jobs:
           git checkout upstream/master -- feeds.conf.default
           sed -i '5s/#src-git/src-git/g' feeds.conf.default
           cd package/ 
-          git clone https://github.com/destan19/OpenAppFilter.git 
-          git clone https://github.com/rufengsuixing/luci-app-adguardhome.git
           git clone https://github.com/lisaac/luci-app-diskman.git
           git clone https://github.com/kenzok8/small.git
           git clone https://github.com/kenzok8/openwrt-packages.git
