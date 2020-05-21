@@ -127,7 +127,7 @@ jobs:
           git rebase adc1a9a3676b8d7be1b48b5aed185a94d8e42728^ --onto upstream/master -X theirs
           git checkout 0a395d6fd6c38c554709197ae3cd6315f143cd7a -- package/kernel/mac80211
           cat package/kernel/mac80211/Makefile
-		  rm target/linux/rockchip-rk3328/patches-4.14/0001-net-thunderx-workaround-BGX-TX-Underflow-issue.patch
+          rm target/linux/rockchip-rk3328/patches-4.14/0001-net-thunderx-workaround-BGX-TX-Underflow-issue.patch
           sed -i '/ipv6/,+3d' package/base-files/files/root/setup.sh
           git checkout upstream/master -- feeds.conf.default
           sed -i '5s/#src-git/src-git/g' feeds.conf.default
@@ -155,7 +155,8 @@ jobs:
           mv ../../scripts/check_wan4.sh package/base-files/files/usr/bin && sed -i '/exit/i\/bin/sh /usr/bin/check_wan4.sh &' package/base-files/files/etc/rc.local
           mv ../../scripts/autoupdate.sh package/base-files/files/root/au.sh && chmod +x package/base-files/files/root/au.sh
           echo -e '\nDYC Build\n' >> package/base-files/files/etc/banner
-          
+
+      - name: Build FriendlyWrt
         run: |
           cd friendlywrt-rk3328
           sed -i 's/set -eu/set -u/' scripts/mk-friendlywrt.sh
@@ -175,7 +176,7 @@ jobs:
           zip -r artifact.zip ./artifact/
           release_tag="R2S-Lean-$(date +%Y-%m-%d)-Minimal"
 	  echo "##[set-output name=release_tag;]$release_tag"
-          
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
