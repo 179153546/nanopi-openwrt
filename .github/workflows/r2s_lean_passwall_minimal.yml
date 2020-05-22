@@ -138,9 +138,9 @@ jobs:
           git checkout upstream/master -- feeds.conf.default
           sed -i '5s/#src-git/src-git/g' feeds.conf.default
           cd package/ 
-          git clone https://github.com/lisaac/luci-app-diskman.git
           git clone https://github.com/kenzok8/small.git
           git clone https://github.com/kenzok8/openwrt-packages.git
+          git clone https://github.com/lisaac/luci-app-diskman.git
           git clone https://github.com/songchenwen/nanopi-r2s
           mv nanopi-r2s/luci-app-r2sflasher/ .
           rm -rf nanopi-r2s/          
