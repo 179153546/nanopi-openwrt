@@ -101,6 +101,7 @@ jobs:
           CONFIG_PACKAGE_luci-app-zerotier=y
           CONFIG_PACKAGE_luci-app-r2sflasher=y
           CONFIG_PACKAGE_luci-app-aria2=y
+          CONFIG_PACKAGE_collectd-mod-cpufreq=y
           # CONFIG_PACKAGE_luci-app-accesscontrol is not set
           # CONFIG_PACKAGE_luci-app-nlbwmon is not set
           # CONFIG_PACKAGE_nlbwmon is not set
