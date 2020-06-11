@@ -57,6 +57,7 @@ jobs:
           CONFIG_OPENSSL_WITH_DTLS=y
           CONFIG_OPENSSL_WITH_EC2M=y
           CONFIG_OPENSSL_WITH_NPN=y
+          CONFIG_PACKAGE_autocore=y
           CONFIG_PACKAGE_htop=y
           CONFIG_PACKAGE_diffutils=y
           CONFIG_PACKAGE_vim-fuller=y
@@ -68,6 +69,7 @@ jobs:
           CONFIG_LIBSODIUM_MINIMAL=y
           CONFIG_PACKAGE_ddns-scripts_aliyun=y
           CONFIG_PACKAGE_ddns-scripts_cloudflare.com-v4=y
+          CONFIG_PACKAGE_luci-app-cpufreq=y
           CONFIG_PACKAGE_luci-app-ssr-plus=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_DNS2SOCKS=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Redsocks2=y
@@ -100,7 +102,6 @@ jobs:
           CONFIG_PACKAGE_luci-app-zerotier=y
           CONFIG_PACKAGE_luci-app-r2sflasher=y
           CONFIG_PACKAGE_luci-app-aria2=y
-          CONFIG_PACKAGE_luci-app-cpufreq=y
           # CONFIG_PACKAGE_luci-app-accesscontrol is not set
           # CONFIG_PACKAGE_luci-app-nlbwmon is not set
           # CONFIG_PACKAGE_nlbwmon is not set
@@ -131,7 +132,7 @@ jobs:
           git clone https://github.com/lisaac/luci-app-diskman.git
           git clone https://github.com/songchenwen/nanopi-r2s
           mv nanopi-r2s/luci-app-r2sflasher/ .
-          rm -rf nanopi-r2s/          
+          rm -rf nanopi-r2s/
           cd ../
           cd package/lean/
           rm -rf luci-theme-argon
