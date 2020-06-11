@@ -57,7 +57,6 @@ jobs:
           CONFIG_OPENSSL_WITH_DTLS=y
           CONFIG_OPENSSL_WITH_EC2M=y
           CONFIG_OPENSSL_WITH_NPN=y
-          CONFIG_PACKAGE_autocore=y
           CONFIG_PACKAGE_htop=y
           CONFIG_PACKAGE_diffutils=y
           CONFIG_PACKAGE_vim-fuller=y
@@ -131,7 +130,6 @@ jobs:
           cd package/ 
           git clone https://github.com/lisaac/luci-app-diskman.git
           git clone https://github.com/songchenwen/nanopi-r2s
-          git clone https://github.com/coolsnowwolf/lede/tree/master/package/lean/luci-app-cpufreq
           mv nanopi-r2s/luci-app-r2sflasher/ .
           rm -rf nanopi-r2s/          
           cd ../
